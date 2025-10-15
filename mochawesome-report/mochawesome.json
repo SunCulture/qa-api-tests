@@ -1,0 +1,100 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-09-06T09:04:34.344Z",
+    "end": "2023-09-06T09:04:35.282Z",
+    "duration": 938,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "b84ee462-1ff0-4a92-8faf-7967c684957d",
+      "title": "",
+      "fullFile": "C:\\Users\\User\\Documents\\Automated Tests\\Supertest_AMT\\test\\getTest.spec.js",
+      "file": "\\test\\getTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "41bcea9e-fd13-4278-b600-2b84498fa906",
+          "title": "Get API tests using supertest",
+          "fullFile": "C:\\Users\\User\\Documents\\Automated Tests\\Supertest_AMT\\test\\getTest.spec.js",
+          "file": "\\test\\getTest.spec.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should successfully pass the test for get api",
+              "fullTitle": "Get API tests using supertest should successfully pass the test for get api",
+              "timedOut": false,
+              "duration": 934,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "console.log('Before sending the request');\nrequest(baseUrl)\n    .get('/paymentTypes')\n    .set('Accept', 'application/json')\n    .set('Content-Type', 'application/json')\n    .set('api_key', `${authToken}`) // Set the authorization header\n    .end(function (err, res) {\n        if (err) {\n            console.error('Error:', err);\n            done(err);\n        } else {\n            console.log('Response received:', res.statusCode);\n            // Check the response\n            expect(res.statusCode).to.be.equal(200);\n            // expect(res.body.data[0].id).to.be.equal(9);\n            done();\n        }\n    });\n\nconsole.log('After sending the request');",
+              "err": {},
+              "uuid": "f1e7eeed-3ec2-4fe5-aec3-188365f0dc2b",
+              "parentUUID": "41bcea9e-fd13-4278-b600-2b84498fa906",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f1e7eeed-3ec2-4fe5-aec3-188365f0dc2b"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 934,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
