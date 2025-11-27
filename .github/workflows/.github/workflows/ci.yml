@@ -1,0 +1,54 @@
+name: API Functional Tests CI
+
+on:
+  push:
+    branches: [ "develop", "main" ]
+  pull_request:
+    branches: [ "develop", "main" ]
+
+jobs:
+  run-api-tests:
+    runs-on: ubuntu-latest
+
+    # Environment variables for Sentry
+    env:
+      NODE_ENV: ci
+      COMMIT_SHA: ${{ github.sha }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' 
+
+    - name: Install Dependencies
+      run: npm ci 
+
+    - name: Run Functional Tests
+      run: npm run report
+      env:
+        SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      
+    - name: Upload Mochawesome Report
+      uses: actions/upload-artifact@v4
+      if: always() # Run this even if the tests fail, so you can check the report
+      with:
+        name: mochawesome-report
+        path: mochawesome-report/api-test-report.html
+        retention-days: 5
+        
+    # Send a summary of the CI run to Sentry as a release
+    - name: Notify Sentry of Release
+      if: success() || failure()
+      run: |
+        npm install -g @sentry/cli
+        sentry-cli releases new $COMMIT_SHA
+        sentry-cli releases set-commits $COMMIT_SHA --auto
+        sentry-cli releases finalize $COMMIT_SHA
+      env:
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        SENTRY_ORG: sunculture sh
+        SENTRY_PROJECT: qa-api-tests
